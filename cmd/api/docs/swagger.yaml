@@ -1,0 +1,99 @@
+definitions:
+  req.Clinic:
+    properties:
+      location:
+        type: string
+      name:
+        type: string
+    type: object
+  res.Response:
+    properties:
+      data: {}
+      error: {}
+      message:
+        type: string
+      stastuscode:
+        type: integer
+    type: object
+info:
+  contact:
+    email: abhinandarun11@gmail.com
+    name: API Support
+  description: Backend API built with Golang using Clean Code architecture
+  title: AnyFashion Application API
+  version: 1.0.0
+paths:
+  /api/clinic-create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new clinic with the specified attributes
+      parameters:
+      - description: Clinic details
+        in: body
+        name: clinic
+        required: true
+        schema:
+          $ref: '#/definitions/req.Clinic'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success response
+          schema:
+            $ref: '#/definitions/res.Response'
+        "400":
+          description: Error response
+          schema:
+            $ref: '#/definitions/res.Response'
+      summary: Create a new clinic
+  /api/create-ticket/{id}:
+    post:
+      consumes:
+      - application/json
+      description: Create a new ticket for a specific clinic
+      parameters:
+      - description: Clinic ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Token Number
+          schema:
+            $ref: '#/definitions/res.Response'
+        "400":
+          description: Error response
+          schema:
+            $ref: '#/definitions/res.Response'
+      summary: Create a new ticket
+  /api/get-ticket/{id}:
+    get:
+      description: Display details of a specific ticket identified by its ID
+      parameters:
+      - description: Ticket ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Ticket details
+          schema:
+            $ref: '#/definitions/res.Response'
+        "402":
+          description: Error response
+          schema:
+            $ref: '#/definitions/res.Response'
+      summary: Show details of a specific ticket
+securityDefinitions:
+  BearerTokenAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
